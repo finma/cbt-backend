@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <script
+      src="https://cdn.socket.io/4.4.1/socket.io.min.js"
+      integrity="sha384-fKnu0iswBIqkjxrhQCTZ7qlLHOFEgNkRmK2vaO/LbTZSXdJfAu6ewRBdwHPhBo/H"
+      crossorigin="anonymous"
+    ></script>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <p>Welcome to <%= title %></p>
+    <button id="join">join</button>
+
+    <script>
+      const socket = io("http://localhost:3001");
+      const buttonJoin = document.querySelector("#join");
+
+      const join = () => {
+        socket.emit("join", "5a99c8");
+      };
+
+      buttonJoin.addEventListener("click", join);
+
+      // socket.on("chat-message", (data) => {
+      //   console.log("data", data);
+      // });
+
+      socket.on("user-joined", (data) => {
+        console.log("data", data);
+      });
+
+      socket.on("get-report", (data) => {
+        console.log("report", data);
+      });
+
+      socket.on("room-created", (data) => {
+        console.log("report", data);
+      });
+    </script>
+  </body>
+</html>
